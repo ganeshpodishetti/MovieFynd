@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import MovieCard from "./components/MovieCard";
 import Search from "./components/search";
 import Spinner from "./components/Spinner";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY = import.meta.env.VITE_API_KEY;
+const AUTH_KEY = import.meta.env.VITE_TMDB_AUTH_KEY;
+const API_KEY = "4ce62ee420b4466d8f7f44776b5ecc91";
 
 const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: `Bearer ${API_KEY}`,
+    Authorization: `Bearer ${AUTH_KEY}`,
   },
 };
 
@@ -24,8 +26,9 @@ const App = () => {
     setErrorMessage("");
 
     try {
-      const endpoint = `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
+      const endpoint = `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${API_KEY}`;
       const response = await fetch(endpoint, API_OPTIONS);
+      console.log(response);
 
       if (!response.ok) {
         throw new Error("Failed to fetch movies");
@@ -66,7 +69,6 @@ const App = () => {
         </header>
         <section className="all-movies">
           <h2 className="mt-[40px]">All Movies</h2>
-          // Loading movies
           {isLoading ? (
             <Spinner />
           ) : errorMessage ? (
@@ -74,8 +76,7 @@ const App = () => {
           ) : (
             <ul>
               {movieList.map((movie) => (
-                // eslint-disable-next-line react/jsx-key
-                <p className="text-white">{movie.title}</p>
+                <MovieCard key={movie.id} movie={movie} />
               ))}
             </ul>
           )}

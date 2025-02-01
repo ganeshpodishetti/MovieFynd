@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDebounce } from "react-use";
 import MovieCard from "./components/MovieCard";
 import Search from "./components/search";
 import Spinner from "./components/Spinner";
@@ -20,6 +21,11 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  // Debounce the search term to prevent API call on every key press
+  // This will wait for 500ms after the user stops typing before making the API call
+  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
@@ -56,8 +62,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchMovies(searchTerm);
-  }, [searchTerm]);
+    fetchMovies(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   return (
     <main>

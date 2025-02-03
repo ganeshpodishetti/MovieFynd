@@ -5,9 +5,10 @@ import MovieCard from "./components/MovieCard";
 import Search from "./components/search";
 import Spinner from "./components/Spinner";
 
-const API_BASE_URL = "https://api.themoviedb.org/3";
+const API_BASE_URL = import.meta.env.VITE_TMDB_API_BASE_URL;
 const AUTH_KEY = import.meta.env.VITE_TMDB_AUTH_KEY;
-const API_KEY = "4ce62ee420b4466d8f7f44776b5ecc91";
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const MOVIE_DISCOVER_URL = import.meta.env.VITE_TMDB_MOVIE_DISCOVER_URL;
 
 const API_OPTIONS = {
   method: "GET",
@@ -38,7 +39,7 @@ const App = () => {
         ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(
             query
           )}&api_key=${API_KEY}`
-        : `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${API_KEY}`;
+        : API_BASE_URL + MOVIE_DISCOVER_URL + API_KEY;
       const response = await fetch(endpoint, API_OPTIONS);
       console.log(response);
 
@@ -88,6 +89,7 @@ const App = () => {
   return (
     <main>
       <div className="pattern"></div>
+
       <div className="wrapper">
         <header>
           <img src="/hero.png" alt="Hero Banner" />

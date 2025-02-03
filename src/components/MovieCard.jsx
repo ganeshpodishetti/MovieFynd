@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+const POSTER_BASE_URL = import.meta.env.VITE_TMDB_POSTER_BASE_URL;
+
 const MovieCard = ({
   movie: { title, vote_average, poster_path, release_date, original_language },
 }) => {

@@ -1,11 +1,13 @@
 import { Client, Databases, ID, Query } from "appwrite";
 
-const PROJECT_ID = "679e6b60001ff5fae0d8";
-const DATABASE_ID = "679e6c37001ac937fec0";
-const COLLECTION_ID = "679e6c5a001bc5a11956";
+const PROJECT_ID = import.meta.env.VITE_APP_WRITE_PROJECT_ID;
+const DATABASE_ID = import.meta.env.VITE_APP_WRITE_DATABASE_ID;
+const COLLECTION_ID = import.meta.env.VITE_APP_WRITE_COLLECTION_ID;
+const POSTER_BASE_URL = import.meta.env.VITE_TMDB_POSTER_BASE_URL;
+const VITE_APP_WRITE_ENDPOINT_URL = import.meta.env.VITE_APP_WRITE_ENDPOINT_URL;
 
 const client = new Client()
-  .setEndpoint("https://cloud.appwrite.io/v1")
+  .setEndpoint(VITE_APP_WRITE_ENDPOINT_URL)
   .setProject(PROJECT_ID);
 
 const database = new Databases(client);
@@ -31,7 +33,7 @@ export const updateSearchCount = async (searchTerm, movie) => {
         searchTerm,
         count: 1,
         movie_id: movie.id,
-        poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+        poster_url: POSTER_BASE_URL + movie.poster_path,
       });
     }
   } catch (error) {

@@ -1,4 +1,5 @@
-const search = ({ searchTerm, setSearchTerm }) => {
+/* eslint-disable react/prop-types */
+const Search = ({ searchTerm, setSearchTerm }) => {
   return (
     <div className="search">
       <div>
@@ -14,4 +15,4 @@ const search = ({ searchTerm, setSearchTerm }) => {
   );
 };
 
-export default search;
+export default Search;

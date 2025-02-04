@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCount } from "./appwrite.js";
 import MovieCard from "./components/MovieCard";
-import Search from "./components/search";
+import Search from "./components/Search";
 import Spinner from "./components/Spinner";
 
 const API_BASE_URL = import.meta.env.VITE_TMDB_API_BASE_URL;
